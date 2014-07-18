@@ -1,0 +1,7 @@
+<h1>Sets page</h1>
+
+Search: <input ng-model="query">
+
+<ul>
+<li ng-repeat="set in sets | filter:query">{{set.setname}}</li>
+</ul>
