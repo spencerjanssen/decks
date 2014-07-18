@@ -9,10 +9,13 @@ angular.module('myApp.controllers', [])
     .controller('MyCtrl2', ['$scope', function($scope) {
 
     }])
-    .controller('SetsController', function($scope, $http) {
+    .controller('SetsController', function($scope, $http, Sets) {
         console.log('sets controller loaded');
-        $http.get('api/sets.json').success(function(data){
-            $scope.sets = data
-        });
+        console.log(Sets);
+        $scope.sets = Sets.getsetlist.query();
+  })
+    .controller('SetController', function($scope, $routeParams, $http, Sets) {
+        console.log('set controller loaded');
+        $scope.cards = Sets.getset.query({setname: $routeParams.setcode});
   })
   ;
