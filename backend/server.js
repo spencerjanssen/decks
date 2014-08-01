@@ -18,7 +18,7 @@ var sets = db.collection('sets');
 
 app.get('/api/sets.json', function(req, res){
     var query = {};
-    var fields = {name: 1, code: 1, _id:0};
+    var fields = {name: 1, code: 1, releaseDate: 1, _id:0};
     sets.find(query, fields).toArray(function(err, docs){
         res.json(docs);
     });
