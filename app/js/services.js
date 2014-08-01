@@ -12,6 +12,6 @@ decksServices.value('version', '0.1');
 
 decksServices.factory('Sets', function($resource){
     var setlist = $resource('api/sets.json');
-    var specificset = $resource('api/set/:setname.json');
+    var specificset = $resource('api/set/:setcode.json');
     return {getsetlist: setlist, getset: specificset};
 });

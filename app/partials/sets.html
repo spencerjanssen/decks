@@ -4,6 +4,6 @@ Search: <input ng-model="query">
 
 <ul>
 <li ng-repeat="set in sets | filter:query">
-<a ng-href="#/set/{{set.setname}}">{{set.setname}}</a>
+<a ng-href="#/set/{{set.code}}">{{set.name}}</a>
 </li>
 </ul>

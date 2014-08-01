@@ -16,6 +16,6 @@ angular.module('myApp.controllers', [])
   })
     .controller('SetController', function($scope, $routeParams, $http, Sets) {
         console.log('set controller loaded');
-        $scope.cards = Sets.getset.query({setname: $routeParams.setcode});
+        $scope.cards = Sets.getset.query({setcode: $routeParams.setcode});
   })
   ;
