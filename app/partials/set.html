@@ -1,5 +1,5 @@
 <h1>{{set.setname}}</h1>
 
 <ul>
-<li ng-repeat="card in cards">{{card.name}}</li>
+<li ng-repeat="card in cards"><a ng-href="#/card/{{card.name}}">{{card.name}}</a></li>
 </ul>

@@ -14,5 +14,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
   $routeProvider.when('/sets', {templateUrl: 'partials/sets.html', controller: 'SetsController'});
   $routeProvider.when('/set/:setcode', {templateUrl: 'partials/set.html', controller: 'SetController'});
+  $routeProvider.when('/card/:cardname', {templateUrl: 'partials/card.html', controller: 'CardController'});
   $routeProvider.otherwise({redirectTo: '/view1'});
 }]);

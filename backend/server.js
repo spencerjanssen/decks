@@ -23,6 +23,7 @@ app.get('/api/sets.json', function(req, res){
         res.json(docs);
     });
 });
+
 app.get('/api/set/:set.json', function(req, res){
     var query = {printing: {"$elemMatch": {set: req.params.set}}};
     var fields = {name: 1, imageName: 1, _id: 0};
@@ -32,6 +33,15 @@ app.get('/api/set/:set.json', function(req, res){
             makeImageName(docs[i]);
         }
         res.json(docs);
+    });
+});
+
+app.get('/api/card/:card.json', function(req, res){
+    var query = {name: req.params.card};
+    var fields = {_id: 0};
+    cards.findOne(query, fields, function(err, doc){
+        if(err) throw err;
+        res.json(doc);
     });
 });
 
