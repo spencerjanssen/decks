@@ -18,4 +18,15 @@ angular.module('myApp.controllers', [])
         console.log('set controller loaded');
         $scope.cards = Sets.getset.query({setcode: $routeParams.setcode});
   })
+    .controller('HeaderController', function($scope, $location){
+        $scope.active = function(loc){
+            console.log(loc);
+            console.log($location.path());
+            if(loc == $location.path()){
+                return 'active';
+            } else {
+                return '';
+            }
+        }
+    })
   ;
