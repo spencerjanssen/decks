@@ -1,0 +1,17 @@
+<h1>{{card.name}}</h1>
+<table class="table">
+<tbody>
+<thead>
+<tr>
+    <th>Set</th>
+    <th>Rarity</th>
+    <th>Flavor</th>
+</tr>
+</thead>
+<tr ng-repeat="printing in card.printing">
+    <td><a ng-href="#/set/{{printing.set}}">{{printing.set}}</a><td>
+    <td>{{printing.rarity}}<td>
+    <td>{{printing.flavor}}<td>
+</tr>
+</tbody>
+</table>
