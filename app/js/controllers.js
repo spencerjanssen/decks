@@ -20,8 +20,6 @@ angular.module('myApp.controllers', [])
   })
     .controller('HeaderController', function($scope, $location){
         $scope.active = function(loc){
-            console.log(loc);
-            console.log($location.path());
             if(loc == $location.path()){
                 return 'active';
             } else {
