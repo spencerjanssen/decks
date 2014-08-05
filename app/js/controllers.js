@@ -21,6 +21,11 @@ angular.module('myApp.controllers', [])
     .controller('CardController', function($scope, $routeParams, $http, Sets) {
         $scope.card = Sets.getcard.get({card: $routeParams.cardname});
   })
+    .controller('AdvSearchController', function($scope, Sets) {
+        $scope.search = function(q){
+            console.log('todo search call to API' + q);
+        }
+  })
     .controller('HeaderController', function($scope, $location){
         $scope.active = function(loc){
             if(loc == $location.path()){
