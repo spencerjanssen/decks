@@ -1,5 +1,2 @@
 <h1>{{set.setname}}</h1>
-
-<ul>
-<li ng-repeat="card in cards"><a ng-href="#/card/{{card.name}}">{{card.name}}</a></li>
-</ul>
+<div ng-include="'partials/cardlist.html'"></div>
