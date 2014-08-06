@@ -14,5 +14,12 @@ decksServices.factory('Sets', function($resource){
     var setlist = $resource('api/sets.json');
     var specificset = $resource('api/set/:setcode.json');
     var specificcard = $resource('api/card/:card.json');
-    return {getsetlist: setlist, getset: specificset, getcard: specificcard};
+    var searchcards = $resource('api/search', null,
+                                {update: {method: 'PUT',
+                                          isArray: true}})
+    return {getsetlist: setlist,
+            getset: specificset,
+            getcard: specificcard,
+            searchcards: searchcards
+           };
 });

@@ -23,7 +23,7 @@ angular.module('myApp.controllers', [])
   })
     .controller('AdvSearchController', function($scope, Sets) {
         $scope.search = function(q){
-            console.log('todo search call to API' + q);
+            $scope.cards = Sets.searchcards.update({}, q);
         }
   })
     .controller('HeaderController', function($scope, $location){

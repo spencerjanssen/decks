@@ -1,6 +1,7 @@
 var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var path = require('path');
+var bodyParser = require('body-parser');
 
 function makeImageName(card){
     if(card.imageName){
@@ -15,6 +16,8 @@ if(err) throw err;
 var app = express();
 var cards = db.collection('cards');
 var sets = db.collection('sets');
+
+app.use(bodyParser.json());
 
 app.get('/api/sets.json', function(req, res){
     var query = {};
@@ -42,6 +45,20 @@ app.get('/api/card/:card.json', function(req, res){
     cards.findOne(query, fields, function(err, doc){
         if(err) throw err;
         res.json(doc);
+    });
+});
+
+app.put('/api/search', function(req, res){
+    var query = {};
+    var fields = {_id: 0};
+    if(req.body.name) {
+        query.name = new RegExp(req.body.name, "i");
+    } if(req.body.text) {
+        query.text = new RegExp(req.body.text, "i");
+    }
+    cards.find(query, fields).toArray(function(err, docs){
+        if(err) throw err;
+        res.json(docs);
     });
 });
 
