@@ -3,10 +3,15 @@ var MongoClient = require('mongodb').MongoClient;
 var path = require('path');
 var bodyParser = require('body-parser');
 
-function makeImageName(card){
+function addImage(card){
     if(card.imageName){
         card.imageName = "http://mtgimage.com/card/"
-                       + card.imageName + ".jpg";
+                          + card.imageName + ".jpg";
+    }
+}
+function addImages(cards){
+    for(var i = 0; i < cards.length; i++){
+        addImage(cards[i]);
     }
 }
 
@@ -32,9 +37,7 @@ app.get('/api/set/:set.json', function(req, res){
     var fields = {name: 1, imageName: 1, _id: 0};
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
-        for(var i = 0; i < docs.length; i++){
-            makeImageName(docs[i]);
-        }
+        addImages(docs);
         res.json(docs);
     });
 });
@@ -44,6 +47,7 @@ app.get('/api/card/:card.json', function(req, res){
     var fields = {_id: 0};
     cards.findOne(query, fields, function(err, doc){
         if(err) throw err;
+        addImage(doc);
         res.json(doc);
     });
 });
@@ -58,6 +62,7 @@ app.put('/api/search', function(req, res){
     }
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
+        addImages(docs);
         res.json(docs);
     });
 });
