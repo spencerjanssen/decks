@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "name": "decks",
+  "description": "A project for dorking around with Magic cards",
+  "version": "0.0.1",
+  "homepage": "https://github.com/spencerjanssen/decks",
   "license": "MIT",
   "private": true,
   "dependencies": {

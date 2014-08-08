@@ -20,8 +20,6 @@
   <div class="container-fluid">
   <div class="collapse navbar-collapse">
   <ul class="nav navbar-nav">
-    <li ng-class="active('/view1')"><a href="#/view1">view1</a></li>
-    <li ng-class="active('/view2')"><a href="#/view2">view2</a></li>
     <li ng-class="active('/sets')"><a href="#/sets">Sets</a></li>
     <li ng-class="active('/advsearch')"><a href="#/advsearch">Search</a></li>
   </ul>
@@ -34,8 +32,6 @@
   <![endif]-->
 
   <div ng-view></div>
-
-  <div>Angular seed app: v<span app-version></span></div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>

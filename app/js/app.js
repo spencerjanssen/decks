@@ -10,14 +10,6 @@ angular.module('myApp', [
   'myApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/view1',
-        {templateUrl: 'partials/partial1.html',
-         controller: 'MyCtrl1',
-         title: 'View 1'});
-    $routeProvider.when('/view2',
-        {templateUrl: 'partials/partial2.html',
-         controller: 'MyCtrl2',
-         title: 'View 2'});
     $routeProvider.when('/sets',
         {templateUrl: 'partials/sets.html',
          controller: 'SetsController',
@@ -34,7 +26,7 @@ config(['$routeProvider', function($routeProvider) {
         {templateUrl: 'partials/card.html',
          controller: 'CardController',
          title: 'Card View'});
-    $routeProvider.otherwise({redirectTo: '/view1'});
+    $routeProvider.otherwise({redirectTo: '/sets'});
 }]).run(['$rootScope', function($rootScope) {
     $rootScope.page = {
         setTitle: function(title) {
@@ -42,6 +34,6 @@ config(['$routeProvider', function($routeProvider) {
         }
     }
     $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
-        $rootScope.page.title = current.$$route.title || 'No Title';
+        $rootScope.page.setTitle(current.$$route.title || 'No Title');
     });
 }]);
