@@ -57,8 +57,12 @@ app.put('/api/search', function(req, res){
     var fields = {_id: 0};
     if(req.body.name) {
         query.name = new RegExp(req.body.name, "i");
-    } if(req.body.text) {
+    }
+    if(req.body.text) {
         query.text = new RegExp(req.body.text, "i");
+    }
+    if(req.body.type) {
+        query.type = new RegExp(req.body.type, "i");
     }
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
