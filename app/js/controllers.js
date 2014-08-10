@@ -4,7 +4,6 @@
 
 angular.module('myApp.controllers', [])
     .controller('SetsController', function($scope, $http, Sets) {
-        console.log(Sets);
         $scope.sets = Sets.getsetlist.query();
   })
     .controller('SetController', function($scope, $routeParams, $http, Sets) {
