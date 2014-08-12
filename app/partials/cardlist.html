@@ -1,3 +1,26 @@
-<ul>
-<li ng-repeat="card in cards"><a ng-href="#/card/{{card.name}}">{{card.name}}</a></li>
-</ul>
+<form class="form-inline" role="form">
+    <div class="form-group">
+        <label class="control-label" for="cardlistdisplaymode">Display list as:</label>
+        <select class="form-control" id="cardlistdisplaymode" ng-model="cardlist.displaymode"
+                ng-init="cardlist.displaymode = 'Simple List'">
+            <option>Simple List</option>
+            <option>Detailed List</option>
+        </select>
+    </div>
+</form>
+<div class="cardlistcontainer" ng-switch on="cardlist.displaymode">
+    <div ng-switch-when="Simple List">
+        <ul>
+        <li ng-repeat="card in cards"><a ng-href="#/card/{{card.name}}">{{card.name}}</a></li>
+        </ul>
+    </div>
+    <div ng-switch-when="Detailed List">
+        <table class="table">
+            <tr ng-repeat="card in cards">
+                <td>{{card.name}}</td>
+                <td>{{card.type}}</td>
+                <td>{{card.manaCost}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
