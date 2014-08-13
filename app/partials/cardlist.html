@@ -16,7 +16,7 @@
         </ul>
     </div>
     <div ng-switch-when="Detailed">
-        <table class="table">
+        <table class="table table-striped">
             <tr ng-repeat="card in cards">
                 <td><a card-link="card"></a></td>
                 <td>{{card.type}}</td>
@@ -26,7 +26,7 @@
     </div>
     <div ng-switch-when="Spoiler">
         <div ng-repeat="card in cards" class="cardspoiler">
-            <p><a card-link="card"></a> {{card.manaCost}}</p>
+            <p><a card-link="card"></a> <span card-symbols="{{card.manaCost}}"></span></p>
             <p>{{card.type}}</p>
             <p>{{card.text}}</p>
             <!-- TODO: p/t -->
