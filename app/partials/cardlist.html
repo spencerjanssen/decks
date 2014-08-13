@@ -2,7 +2,7 @@
     <div class="form-group">
         <label class="control-label" for="cardlistdisplaymode">Display list as:</label>
         <select class="form-control" id="cardlistdisplaymode" ng-model="cardlist.displaymode"
-                ng-init="cardlist.displaymode = 'Simple'">
+                ng-init="cardlist.displaymode = 'Detailed'">
             <option>Simple</option>
             <option>Detailed</option>
             <option>Spoiler</option>
@@ -20,7 +20,7 @@
             <tr ng-repeat="card in cards">
                 <td><a card-link="card"></a></td>
                 <td>{{card.type}}</td>
-                <td>{{card.manaCost}}</td>
+                <td card-symbols="{{card.manaCost}}"></td>
             </tr>
         </table>
     </div>
