@@ -14,7 +14,9 @@
     "karma-junit-reporter": "^0.2.2",
     "express": "^4",
     "mongodb": "^1.4",
-    "body-parser": "^1.5"
+    "body-parser": "^1.5",
+    "lex": "~1.7.x",
+    "jison": "~0.4.x"
   },
   "scripts": {
     "postinstall": "bower install",
