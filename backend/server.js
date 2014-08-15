@@ -73,6 +73,6 @@ app.put('/api/search', function(req, res){
 
 app.use('/', express.static(__dirname + '/../app/'));
 
-app.listen(3000);
+app.listen(80);
 
 });
