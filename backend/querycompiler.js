@@ -30,7 +30,6 @@ test suite cruft
 */
 
 function compileAST(ast){
-    console.log(ast);
     switch(ast[0]){
         case 'AND':
             return {$and: [compileAST(ast[1]), compileAST(ast[2])]};
@@ -48,8 +47,6 @@ function compileAST(ast){
 }
 
 function compile(s){
-    console.log(parser.parse(s));
-    console.log(compileAST(parser.parse(s)));
     return compileAST(parser.parse(s));
 }
 
