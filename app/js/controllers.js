@@ -21,6 +21,11 @@ angular.module('myApp.controllers', [])
             $scope.cards = Sets.searchcards.update({}, q);
         }
   })
+    .controller('QuerySearchController', function($scope, Sets) {
+        $scope.search = function(q){
+            $scope.cards = Sets.querysearch.query({query: q});
+        }
+  })
     .controller('HeaderController', function($scope, $location){
         $scope.active = function(loc){
             if(loc == $location.path()){

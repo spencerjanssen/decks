@@ -18,6 +18,10 @@ config(['$routeProvider', function($routeProvider) {
         {templateUrl: 'partials/advsearch.html',
          controller: 'AdvSearchController',
          title: 'Search'});
+    $routeProvider.when('/querysearch',
+        {templateUrl: 'partials/querysearch.html',
+         controller: 'QuerySearchController',
+         title: 'Query'});
     $routeProvider.when('/set/:setcode',
         {templateUrl: 'partials/set.html',
          controller: 'SetController',
