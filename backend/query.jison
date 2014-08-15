@@ -30,9 +30,9 @@ e
     : e AND e           {$$ = ['AND', $1, $3];}
     | e OR  e           {$$ = ['OR', $1, $3];}
     | NOT e             {$$ = ['NOT', $2];}
-    | '(' e ')'         {$$ = [$2];}
-    | TEXT              {$$ = yytext; }
-    | OPERTXT TEXT      {$$ = ["_O:", $2]; }
+    | '(' e ')'         {$$ = $2;}
+    | TEXT              {$$ = ["_CARDNAME:", yytext]; }
+    | OPERTXT TEXT      {$$ = ["_CARDTEXT:", $2]; }
     ;
 
 /*
@@ -43,6 +43,6 @@ cases where whitespace is bad:
 *before close paren
 *before and after OR
 *before and after AND
-after OPER: stuff
+after OPER: stuff-- nah, no WS allowed here
 
 */
