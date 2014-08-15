@@ -8,6 +8,7 @@ var jison= require("jison");
 var bnf = fs.readFileSync("backend\\query.jison", "utf8");
 var parser = new jison.Parser(bnf);
 
+/*
 var tests = [ '("123")'
             , '"123" "123"'
             , '( "123" )'
@@ -25,6 +26,8 @@ for(var i = 0; i < tests.length; i++){
     console.log(parsed);
     console.log(compile(parsed));
 }
+test suite cruft
+*/
 
 function compile(ast){
     switch(ast[0]){
