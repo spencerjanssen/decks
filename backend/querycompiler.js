@@ -29,14 +29,15 @@ for(var i = 0; i < tests.length; i++){
 test suite cruft
 */
 
-function compile(ast){
+function compileAST(ast){
+    console.log(ast);
     switch(ast[0]){
         case 'AND':
-            return {$and: [compile(ast[1]), compile(ast[2])]};
+            return {$and: [compileAST(ast[1]), compileAST(ast[2])]};
         case 'OR':
-            return {$or: [compile(ast[1]), compile(ast[2])]};
+            return {$or: [compileAST(ast[1]), compileAST(ast[2])]};
         case 'NOT':
-            return {$not: compile(ast[1])}
+            return {$not: compileAST(ast[1])}
         case '_CARDNAME:':
             return {name: new RegExp(ast[1], 'i')};
         case '_CARDTEXT:':
@@ -45,3 +46,12 @@ function compile(ast){
             throw ("Compiler error, unrecognized tag: " + ast[0]);
     }
 }
+
+function compile(s){
+    console.log(parser.parse(s));
+    console.log(compileAST(parser.parse(s)));
+    return compileAST(parser.parse(s));
+}
+
+exports.compile = compile;
+exports.parser = parser;

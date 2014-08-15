@@ -2,6 +2,7 @@ var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var path = require('path');
 var bodyParser = require('body-parser');
+var querycompiler = require('./querycompiler');
 
 function addImage(card){
     if(card.imageName){
@@ -64,6 +65,16 @@ app.put('/api/search', function(req, res){
     if(req.body.type) {
         query.type = new RegExp(req.body.type, "i");
     }
+    cards.find(query, fields).toArray(function(err, docs){
+        if(err) throw err;
+        addImages(docs);
+        res.json(docs);
+    });
+});
+
+app.get('/api/querysearch/:query.json', function(req, res){
+    var query = querycompiler.compile(req.params.query);
+    var fields = {_id: 0};
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
         addImages(docs);
