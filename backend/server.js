@@ -85,7 +85,11 @@ app.put('/api/search', function(req, res){
 
 app.use('/', express.static(__dirname + '/../app/'));
 
-var port = parseInt(process.env.OPENSHIFT_NODEJS_PORT) | 3000;
-app.listen(port);
+if(process.env.OPENSHIFT_NODEJS_IP){
+    app.listen(process.env.OPENSHIFT_NODEJS_IP
+             , parseInt(process.env.OPENSHIFT_NODEJS_PORT));
+} else {
+    app.listen(3000);
+}
 
 });
