@@ -56,6 +56,17 @@ function uniqcardlist(cards){
     return uniq;
 }
 
+function withDB(cb){
+    var dbstring = process.env.OPENSHIFT_MONGODB_DB_URL
+                 || 'mongodb://127.0.0.1:27017';
+    dbstring = dbstring + '/cards';
+
+    MongoClient.connect(dbstring, function(err, db){
+        if(err) throw err;
+        cb(err, db);
+    });
+}
+
 fs.readFile(file, 'utf8', function (err, data) {
     if (err) {
         console.log('Error: ' + err);
@@ -65,7 +76,7 @@ fs.readFile(file, 'utf8', function (err, data) {
     data = JSON.parse(data);
     
     var munged = munge(data);
-    MongoClient.connect('mongodb://127.0.0.1:27017/cards', function(err, db) {
+    withDB(function(err, db) {
         if(err) throw err;
         var sets = db.collection('sets');
             cards = db.collection('cards');

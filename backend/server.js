@@ -16,7 +16,18 @@ function addImages(cards){
     }
 }
 
-MongoClient.connect('mongodb://127.0.0.1:27017/cards', function(err, db) {
+function withDB(cb){
+    var dbstring = process.env.OPENSHIFT_MONGODB_DB_URL
+                 || 'mongodb://127.0.0.1:27017';
+    dbstring = dbstring + '/cards';
+
+    MongoClient.connect(dbstring, function(err, db){
+        if(err) throw err;
+        cb(err, db);
+    });
+}
+
+withDB(function(err, db) {
 if(err) throw err;
 
 var app = express();
@@ -84,6 +95,13 @@ app.get('/api/querysearch/:query.json', function(req, res){
 
 app.use('/', express.static(__dirname + '/../app/'));
 
-app.listen(3000);
+if(process.env.OPENSHIFT_NODEJS_IP){
+    console.log(process.env.OPENSHIFT_NODEJS_IP);
+    console.log(process.env.OPENSHIFT_NODEJS_PORT);
+    app.listen(parseInt(process.env.OPENSHIFT_NODEJS_PORT)
+             , process.env.OPENSHIFT_NODEJS_IP);
+} else {
+    app.listen(3000);
+}
 
 });
