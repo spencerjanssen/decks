@@ -87,8 +87,8 @@ app.use('/', express.static(__dirname + '/../app/'));
 if(process.env.OPENSHIFT_NODEJS_IP){
     console.log(process.env.OPENSHIFT_NODEJS_IP);
     console.log(process.env.OPENSHIFT_NODEJS_PORT);
-    app.listen(process.env.OPENSHIFT_NODEJS_IP
-             , parseInt(process.env.OPENSHIFT_NODEJS_PORT));
+    app.listen(parseInt(process.env.OPENSHIFT_NODEJS_PORT)
+             , process.env.OPENSHIFT_NODEJS_IP);
 } else {
     app.listen(3000);
 }
