@@ -16,19 +16,14 @@ function addImages(cards){
 }
 
 function withDB(cb){
-    var dbhost = process.env.OPENSHIFT_MONGODB_DB_HOST | '127.0.0.1';
-    var dbport = parseInt(process.env.OPENSHIFT_MONGODB_DB_PORT) | 27017;
-    var dbstring = 'mongodb://' + dbhost + ':' + dbport + '/cards';
-    var username = process.env.OPENSHIFT_MONGODB_DB_USERNAME;
-    var password = process.env.OPENSHIFT_MONGODB_DB_PASSWORD;
+    var dbstring = process.env.OPENSHIFT_MONGODB_DB_URL
+                 || 'mongodb://127.0.0.1:27017';
+    dbstring = dbstring + '/cards';
+    console.log(dbstring);
 
     MongoClient.connect(dbstring, function(err, db){
         if(err) throw err;
-        if(password){
-            db.authenticate(username, password, cb);
-        } else {
-            cb(err, db);
-        }
+        cb(err, db);
     });
 }
 
