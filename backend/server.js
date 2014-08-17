@@ -19,8 +19,8 @@ function withDB(cb){
     var dbhost = process.env.OPENSHIFT_MONGODB_DB_HOST | '127.0.0.1';
     var dbport = parseInt(process.env.OPENSHIFT_MONGODB_DB_PORT) | 27017;
     var dbstring = 'mongodb://' + dbhost + ':' + dbport + '/cards';
-    var username = process.env.OPENSHIFT_MONGODB_USERNAME;
-    var password = process.env.OPENSHIFT_MONGODB_PASSWORD;
+    var username = process.env.OPENSHIFT_MONGODB_DB_USERNAME;
+    var password = process.env.OPENSHIFT_MONGODB_DB_PASSWORD;
 
     MongoClient.connect(dbstring, function(err, db){
         if(err) throw err;
@@ -32,7 +32,7 @@ function withDB(cb){
     });
 }
 
-MongoClient.connect('mongodb://127.0.0.1:27017/cards', function(err, db) {
+withDB(function(err, db) {
 if(err) throw err;
 
 var app = express();
