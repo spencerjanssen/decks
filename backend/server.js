@@ -19,7 +19,6 @@ function withDB(cb){
     var dbstring = process.env.OPENSHIFT_MONGODB_DB_URL
                  || 'mongodb://127.0.0.1:27017';
     dbstring = dbstring + '/cards';
-    console.log(dbstring);
 
     MongoClient.connect(dbstring, function(err, db){
         if(err) throw err;
@@ -86,6 +85,8 @@ app.put('/api/search', function(req, res){
 app.use('/', express.static(__dirname + '/../app/'));
 
 if(process.env.OPENSHIFT_NODEJS_IP){
+    console.log(process.env.OPENSHIFT_NODEJS_IP);
+    console.log(process.env.OPENSHIFT_NODEJS_PORT);
     app.listen(process.env.OPENSHIFT_NODEJS_IP
              , parseInt(process.env.OPENSHIFT_NODEJS_PORT));
 } else {
