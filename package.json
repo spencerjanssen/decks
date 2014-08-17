@@ -17,7 +17,6 @@
   },
   "scripts": {
 
-    "prestart": "npm install",
     "start": "node backend/server.js",
 
     "pretest": "npm install",
