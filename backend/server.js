@@ -73,6 +73,7 @@ app.put('/api/search', function(req, res){
 
 app.use('/', express.static(__dirname + '/../app/'));
 
-app.listen(80);
+var port = parseInt(process.env.OPENSHIFT_NODEJS_PORT) | 3000;
+app.listen(port);
 
 });
