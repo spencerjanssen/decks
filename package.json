@@ -16,6 +16,7 @@
     "body-parser": "^1.5"
   },
   "scripts": {
+    "postinstall": "bower install",
 
     "start": "node backend/server.js",
 
