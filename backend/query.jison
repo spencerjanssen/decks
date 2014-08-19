@@ -11,7 +11,7 @@
 \s*\)           { return ')'; }
 [^\s\:\"\'\(\)]+ { return 'TEXT'; }
 \s*<<EOF>>      { return 'EOF'; }
-o\:             { return 'OPERTXT'; }
+[oO]\:          { return 'OPERTXT'; }
 
 /lex
 
