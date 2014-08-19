@@ -29,6 +29,30 @@ for(var i = 0; i < tests.length; i++){
 test suite cruft
 */
 
+function expandColors(s){
+    var result = Array();
+    for(var i = 0; i < s.length; i++){
+        switch(s[i]){
+            case 'w':
+                result.push('White');
+                break;
+            case 'u':
+                result.push('Blue');
+                break;
+            case 'b':
+                result.push('Black');
+                break;
+            case 'r':
+                result.push('Red');
+                break;
+            case 'g':
+                result.push('Green');
+                break;
+        }
+    }
+    return result;
+}
+
 function compileAST(ast){
     switch(ast[0]){
         case 'AND':
@@ -43,6 +67,9 @@ function compileAST(ast){
             return {name: new RegExp(ast[1], 'i')};
         case '_CARDTYPE:':
             return {type: new RegExp(ast[1], 'i')};
+        case '_COLOR:':
+            var cs = expandColors(ast[1]);
+            return {colors: {$in: cs}};
         default:
             throw ("Compiler error, unrecognized tag: " + ast[0]);
     }

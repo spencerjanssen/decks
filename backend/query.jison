@@ -13,6 +13,7 @@
 \s*<<EOF>>      { return 'EOF'; }
 [oO]\:          { return 'OPERTXT'; }
 [tT]\:          { return 'OPERTYP'}
+[cC]\:[wubrg]+  { yytext = yytext.substr(2, yyleng); return 'COLOR'}
 
 /lex
 
@@ -36,6 +37,7 @@ e
     | TEXT              {$$ = ["_CARDNAME:", yytext]; }
     | OPERTXT TEXT      {$$ = ["_CARDTEXT:", $2]; }
     | OPERTYP TEXT      {$$ = ["_CARDTYPE:", $2]; }
+    | COLOR             {$$ = ["_COLOR:", yytext]; }
     ;
 
 /*
