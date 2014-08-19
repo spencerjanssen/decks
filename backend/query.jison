@@ -12,6 +12,7 @@
 [^\s\:\"\'\(\)]+ { return 'TEXT'; }
 \s*<<EOF>>      { return 'EOF'; }
 [oO]\:          { return 'OPERTXT'; }
+[tT]\:          { return 'OPERTYP'}
 
 /lex
 
@@ -19,6 +20,7 @@
 %left 'OR'
 %left 'NOT'
 %left 'OPERTXT'
+%left 'OPERTYP'
 
 %%
 
@@ -33,6 +35,7 @@ e
     | '(' e ')'         {$$ = $2;}
     | TEXT              {$$ = ["_CARDNAME:", yytext]; }
     | OPERTXT TEXT      {$$ = ["_CARDTEXT:", $2]; }
+    | OPERTYP TEXT      {$$ = ["_CARDTYPE:", $2]; }
     ;
 
 /*
