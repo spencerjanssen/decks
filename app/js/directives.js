@@ -19,11 +19,13 @@ angular.module('myApp.directives', [])
         return { restrict: 'A'
                , link: function(scope, element, attrs){
                     var output = '';
+                    var prefix = 'http://mtgimage.com/symbol/mana/';
                     var lex = (new Lexer())
                         .setInput(attrs.cardSymbols)
                         .addRule(/{([^}]+)}/, function(l, sym) {
                             sym = sym.replace('/', '');
-                            output += '<img src="http://mtgimage.com/symbol/mana/' + sym + '/16.png"></img>';
+                            output += '<img src="' + prefix + sym
+                                   + '/16.png"></img>';
                             return sym ;
                         });
                     while(lex.lex()) {};
