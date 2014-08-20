@@ -41,4 +41,12 @@ angular.module('myApp.controllers', [])
             }
         }
     })
+    .controller('CardlistController', function($scope){
+        $scope.displayModes =
+            [ {name: 'Simple'}
+            , {name: 'Detailed'}
+            , {name: 'Spoiler'}
+            ]
+        $scope.currentMode = $scope.displayModes[0];
+    })
 ;

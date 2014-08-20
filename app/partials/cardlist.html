@@ -1,15 +1,18 @@
+<div ng-controller="CardlistController">
 <form class="form-inline" role="form">
     <div class="form-group">
         <label class="control-label" for="cardlistdisplaymode">Display list as:</label>
-        <select class="form-control" id="cardlistdisplaymode" ng-model="cardlist.displaymode"
-                ng-init="cardlist.displaymode = 'Detailed'">
-            <option>Simple</option>
-            <option>Detailed</option>
-            <option>Spoiler</option>
+        <select class="form-control" id="cardlistdisplaymode"
+            ng-model="currentMode"
+            ng-options="displayMode.name for displayMode in displayModes">
         </select>
+        <label class="control-label" for="cardlistdisplaycount">Display first:</label>
+        <input class="form-control" id="cardlistdisplaycount"
+            ng-model="cardlist.count"
+            ng-init="cardlist.count = 100"></input>
     </div>
 </form>
-<div class="cardlistcontainer" ng-switch on="cardlist.displaymode">
+<div class="cardlistcontainer" ng-switch on="currentMode.name">
     <div ng-switch-when="Simple">
         <ul>
         <li ng-repeat="card in cards"><a card-link="card"></a></li>
@@ -32,4 +35,5 @@
             <!-- TODO: p/t -->
         </div>
     </div>
+</div>
 </div>
