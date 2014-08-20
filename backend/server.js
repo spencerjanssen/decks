@@ -37,7 +37,6 @@ app.get('/api/set/:set.json', function(req, res){
     var fields = {name: 1, imageName: 1, _id: 0};
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
-        //addImages(docs);
         res.json(docs);
     });
 });
@@ -47,7 +46,6 @@ app.get('/api/card/:card.json', function(req, res){
     var fields = {_id: 0};
     cards.findOne(query, fields, function(err, doc){
         if(err) throw err;
-        //addImage(doc);
         res.json(doc);
     });
 });
@@ -66,7 +64,6 @@ app.put('/api/search', function(req, res){
     }
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
-        //addImages(docs);
         res.json(docs);
     });
 });
@@ -76,7 +73,6 @@ app.get('/api/querysearch/:query.json', function(req, res){
     var fields = {_id: 0};
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
-        //addImages(docs);
         res.json(docs);
     });
 });
