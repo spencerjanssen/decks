@@ -15,6 +15,12 @@ angular.module('myApp.controllers', [])
     .controller('CardController', function($scope, $routeParams, $http, Sets) {
         $scope.card = Sets.getcard.get({card: $routeParams.cardname});
         $scope.page.setTitle('Card: ' + $routeParams.cardname);
+        $scope.imageOf = function(card){
+            if(!card){
+                return undefined;
+            }
+            return 'http://mtgimage.com/card/' + card.imageName + '.jpg';
+        }
     })
     .controller('AdvSearchController', function($scope, Sets) {
         $scope.search = function(q){

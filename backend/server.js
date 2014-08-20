@@ -4,18 +4,6 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var querycompiler = require('./querycompiler');
 
-function addImage(card){
-    if(card.imageName){
-        card.imageName = "http://mtgimage.com/card/"
-                          + card.imageName + ".jpg";
-    }
-}
-function addImages(cards){
-    for(var i = 0; i < cards.length; i++){
-        addImage(cards[i]);
-    }
-}
-
 function withDB(cb){
     var dbstring = process.env.OPENSHIFT_MONGODB_DB_URL
                  || 'mongodb://127.0.0.1:27017';
@@ -49,7 +37,7 @@ app.get('/api/set/:set.json', function(req, res){
     var fields = {name: 1, imageName: 1, _id: 0};
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
-        addImages(docs);
+        //addImages(docs);
         res.json(docs);
     });
 });
@@ -59,7 +47,7 @@ app.get('/api/card/:card.json', function(req, res){
     var fields = {_id: 0};
     cards.findOne(query, fields, function(err, doc){
         if(err) throw err;
-        addImage(doc);
+        //addImage(doc);
         res.json(doc);
     });
 });
@@ -78,7 +66,7 @@ app.put('/api/search', function(req, res){
     }
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
-        addImages(docs);
+        //addImages(docs);
         res.json(docs);
     });
 });
@@ -88,7 +76,7 @@ app.get('/api/querysearch/:query.json', function(req, res){
     var fields = {_id: 0};
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
-        addImages(docs);
+        //addImages(docs);
         res.json(docs);
     });
 });
