@@ -53,6 +53,31 @@ function expandColors(s){
     return result;
 }
 
+function cmcoper(s){
+    switch(s){
+        case '<':
+            return '$lt';
+        case '<=':
+            return '$lte';
+        case '=':
+            return '$eq';
+        case '>=':
+            return '$gte';
+        case '>':
+            return '$gt';
+        default:
+            throw ('Compiler error, bad cmc operator' + s);
+    }
+}
+
+function parsenumber(s){
+    var n = parseInt(s);
+    if(isNaN(n)){
+        throw ('Compiler error, not a number');
+    }
+    return parseInt(s);
+}
+
 function compileAST(ast){
     switch(ast[0]){
         case 'AND':
@@ -70,6 +95,10 @@ function compileAST(ast){
         case '_COLOR:':
             var cs = expandColors(ast[1]);
             return {colors: {$in: cs}};
+        case '_CMC:':
+            var ret = {};
+            ret[cmcoper(ast[1])] = parsenumber(ast[2]);
+            return {cmc: ret};
         default:
             throw ("Compiler error, unrecognized tag: " + ast[0]);
     }
