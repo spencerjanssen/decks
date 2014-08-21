@@ -21,6 +21,7 @@
   "scripts": {
     "postinstall": "HOME=.bower bower install",
 
+    "prestart": "npm install",
     "start": "node backend/server.js",
 
     "pretest": "npm install",
