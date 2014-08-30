@@ -9,11 +9,12 @@
 \"[^"]*\"       { return 'TEXT'; }
 \(\s*           { return '('; }
 \s*\)           { return ')'; }
-[^\s\:\"\'\(\)]+ { return 'TEXT'; }
+[^\s\:\"\'\(\)\=<>]+ { return 'TEXT'; }
 \s*<<EOF>>      { return 'EOF'; }
 [oO]\:          { return 'OPERTXT'; }
 [tT]\:          { return 'OPERTYP'}
 [cC]\:[wubrg]+  { yytext = yytext.substr(2, yyleng); return 'COLOR'}
+[cC][mM][cC](\=|([<>]\=?)) { yytext = yytext.substr(3, yyleng); return 'CMC'}
 
 /lex
 
@@ -22,6 +23,7 @@
 %left 'NOT'
 %left 'OPERTXT'
 %left 'OPERTYP'
+%left 'CMC'
 
 %%
 
@@ -37,6 +39,7 @@ e
     | TEXT              {$$ = ["_CARDNAME:", yytext]; }
     | OPERTXT TEXT      {$$ = ["_CARDTEXT:", $2]; }
     | OPERTYP TEXT      {$$ = ["_CARDTYPE:", $2]; }
+    | CMC TEXT          {$$ = ["_CMC:", $1, $2]; }
     | COLOR             {$$ = ["_COLOR:", yytext]; }
     ;
 

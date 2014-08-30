@@ -27,10 +27,23 @@ angular.module('myApp.controllers', [])
             $scope.cards = Sets.searchcards.update({}, q);
         }
     })
-    .controller('QuerySearchController', function($scope, Sets) {
-        $scope.search = function(q){
-            $scope.cards = Sets.querysearch.query({query: q});
+    .controller('QuerySearchController', function($scope, $location, Sets) {
+        function dothesearch(){
+            $scope.cards = Sets.querysearch.query({query: $scope.query});
         }
+        if($location.search().q){
+            $scope.query = $location.search().q;
+            dothesearch();
+        } else {
+            $scope.query = '';
+        }
+
+        $scope.dosearch = function(){
+            $location.search('q', $scope.query)
+        }
+        $scope.$on('$routeUpdate', function(next, current){
+            dothesearch();
+        });
     })
     .controller('HeaderController', function($scope, $location){
         $scope.active = function(loc){

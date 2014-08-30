@@ -21,7 +21,8 @@ config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/querysearch',
         {templateUrl: 'partials/querysearch.html',
          controller: 'QuerySearchController',
-         title: 'Query'});
+         title: 'Query',
+         reloadOnSearch: false});
     $routeProvider.when('/set/:setcode',
         {templateUrl: 'partials/set.html',
          controller: 'SetController',
