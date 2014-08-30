@@ -53,21 +53,28 @@ function expandColors(s){
     return result;
 }
 
-function cmcoper(s){
+function cmcoper(s, v){
+    var ret = {};
     switch(s){
         case '<':
-            return '$lt';
+            ret['$lt'] = v;
+            break;
         case '<=':
-            return '$lte';
+            ret['$let'] = v;
+            break;
         case '=':
-            return '$eq';
+            ret = v;
+            break;
         case '>=':
-            return '$gte';
+            ret['$gte'] = v;
+            break;
         case '>':
-            return '$gt';
+            ret['$gt'] = v;
+            break;
         default:
             throw ('Compiler error, bad cmc operator' + s);
     }
+    return ret;
 }
 
 function parsenumber(s){
@@ -98,7 +105,7 @@ function compileAST(ast){
         case '_CMC:':
             var ret = {};
             ret[cmcoper(ast[1])] = parsenumber(ast[2]);
-            return {cmc: ret};
+            return {cmc: cmcoper(ast[1], parsenumber(ast[2]))};
         default:
             throw ("Compiler error, unrecognized tag: " + ast[0]);
     }
