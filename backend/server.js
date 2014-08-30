@@ -69,7 +69,13 @@ app.put('/api/search', function(req, res){
 });
 
 app.get('/api/querysearch/:query.json', function(req, res){
-    var query = querycompiler.compile(req.params.query);
+    var query;
+    try {
+        query = querycompiler.compile(req.params.query);
+    } catch (e){
+        res.json(e);
+        return;
+    }
     var fields = {_id: 0};
     cards.find(query, fields).toArray(function(err, docs){
         if(err) throw err;
