@@ -5,8 +5,8 @@
 \s*AND\s*       { return 'AND'; }
 \s*OR\s*        { return 'OR'; }
 \s*NOT\s*       { return 'NOT'; }
-\'[^']*\'       { return 'TEXT'; }
-\"[^"]*\"       { return 'TEXT'; }
+\'[^']*\'       { yytext = yytext.substr(1, yyleng-2); return 'TEXT'; }
+\"[^"]*\"       { yytext = yytext.substr(1, yyleng-2); return 'TEXT'; }
 \(\s*           { return '('; }
 \s*\)           { return ')'; }
 [^\s\:\"\'\(\)\=<>]+ { return 'TEXT'; }
