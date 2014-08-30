@@ -6,21 +6,21 @@
             ng-model="currentMode"
             ng-options="displayMode.name for displayMode in displayModes">
         </select>
-        <label class="control-label" for="cardlistdisplaycount">Display first:</label>
-        <input class="form-control" id="cardlistdisplaycount"
-            ng-model="cardlist.count"
-            ng-init="cardlist.count = 100"></input>
     </div>
 </form>
+<pagination ng-model="currentPage" total-items="cards.length"
+            items-per-page="currentMode.pageAt"></pagination>
 <div class="cardlistcontainer" ng-switch on="currentMode.name">
     <div ng-switch-when="Simple">
         <ul>
-        <li ng-repeat="card in cards"><a card-link="card"></a></li>
+        <li ng-repeat="card in cards | paginate:currentPage:currentMode.pageAt">
+            <a card-link="card"></a>
+        </li>
         </ul>
     </div>
     <div ng-switch-when="Detailed">
         <table class="table table-striped">
-            <tr ng-repeat="card in cards">
+            <tr ng-repeat="card in cards | paginate:currentPage:currentMode.pageAt">
                 <td><a card-link="card"></a></td>
                 <td>{{card.type}}</td>
                 <td card-symbols="{{card.manaCost}}"></td>
@@ -28,7 +28,8 @@
         </table>
     </div>
     <div ng-switch-when="Spoiler">
-        <div ng-repeat="card in cards" class="cardspoiler">
+        <div ng-repeat="card in cards | paginate:currentPage:currentMode.pageAt"
+            class="cardspoiler">
             <p><a card-link="card"></a> <span card-symbols="{{card.manaCost}}"></span></p>
             <p>{{card.type}}</p>
             <p>{{card.text}}</p>

@@ -56,10 +56,11 @@ angular.module('myApp.controllers', [])
     })
     .controller('CardlistController', function($scope){
         $scope.displayModes =
-            [ {name: 'Simple'}
-            , {name: 'Detailed'}
-            , {name: 'Spoiler'}
+            [ {name: 'Simple', pageAt: 1000}
+            , {name: 'Detailed', pageAt: 100}
+            , {name: 'Spoiler', pageAt: 20}
             ]
         $scope.currentMode = $scope.displayModes[0];
+        $scope.currentPage = 1;
     })
 ;
