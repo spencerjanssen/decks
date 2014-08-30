@@ -89,7 +89,7 @@ function compileAST(ast){
         case '_CARDNAME:':
             return {name: new RegExp(ast[1], 'i')};
         case '_CARDTEXT:':
-            return {name: new RegExp(ast[1], 'i')};
+            return {text: new RegExp(ast[1], 'i')};
         case '_CARDTYPE:':
             return {type: new RegExp(ast[1], 'i')};
         case '_COLOR:':
