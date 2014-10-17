@@ -7,10 +7,10 @@ angular.module('myApp.controllers', [])
         $scope.sets = Sets.getsetlist.query();
     })
     .controller('SetController', function($scope, $routeParams, $http, Sets) {
-        $scope.cards = Sets.getset.query({setcode: $routeParams.setcode});
-        // TODO actually look up set info and display nice name
-        $scope.set = {setname: $routeParams.setcode};
-        $scope.page.setTitle('Set: ' + $routeParams.setcode);
+        $scope.set = Sets.getset.get({setcode: $routeParams.setcode}, function(){
+            $scope.cards = $scope.set.cards;
+            $scope.page.setTitle('Set: ' + $routeParams.setcode);
+        });
     })
     .controller('CardController', function($scope, $routeParams, $http, Sets) {
         $scope.card = Sets.getcard.get({card: $routeParams.cardname});

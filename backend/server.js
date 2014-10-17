@@ -33,11 +33,19 @@ app.get('/api/sets.json', function(req, res){
 });
 
 app.get('/api/set/:set.json', function(req, res){
-    var query = {printing: {"$elemMatch": {set: req.params.set}}};
-    var fields = {name: 1, imageName: 1, _id: 0};
-    cards.find(query, fields).toArray(function(err, docs){
+    var setcode = req.params.set;
+    var setquery = {code: setcode}
+    var setfields = {name: 1, code: 1, releaseDate: 1, _id:0};
+    sets.findOne(setquery, setfields, function(err, set){
         if(err) throw err;
-        res.json(docs);
+
+        var cardquery = {printing: {"$elemMatch": {set: setcode}}};
+        var cardfields = {_id: 0};
+        cards.find(cardquery, cardfields).toArray(function(err, docs){
+            if(err) throw err;
+            set.cards = docs;
+            res.json(set);
+        });
     });
 });
 
