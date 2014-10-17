@@ -13,16 +13,26 @@ angular.module('myApp.controllers', [])
         });
     })
     .controller('PickOrderController', function($scope, $routeParams, $http,
-                                                Sets, Sorter) {
+                                                Sets, Sorter, GraphHelp) {
         function yielder(c){
             $scope.results.push(c);
         }
 
+        var g = GraphHelp();
+
         function comparer(x, y, cont){
-            $scope.leftcard = x;
-            $scope.rightcard = y;
-            currentcont = cont;
-            return '';
+            if(g.hasPath(x.name, y.name)){
+                console.log('redundant comparison ' + x.name + ' ' + y.name);
+                cont(true);
+            } else if(g.hasPath(y.name, x.name)){
+                console.log('redundant comparison ' + y.name + ' ' + x.name);
+                cont(false);
+            } else {
+                $scope.leftcard = x;
+                $scope.rightcard = y;
+                currentcont = cont;
+                return '';
+            }
         };
 
         function finished(){
@@ -30,6 +40,11 @@ angular.module('myApp.controllers', [])
         }
 
         $scope.clicked = function(b){
+            if(b){
+                g.addEdge($scope.leftcard.name, $scope.rightcard.name);
+            } else {
+                g.addEdge($scope.rightcard.name, $scope.leftcard.name);
+            }
             var c = currentcont;
             currentcont = 'not a function';
             return c(b);

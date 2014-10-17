@@ -24,6 +24,28 @@ decksServices.factory('Sets', function($resource){
            };
 });
 
+decksServices.factory('GraphHelp', function(){
+    // keep the transitive closure of a graph
+    return function(){
+        var graph = {};
+        var obj =
+            { hasPath: function(u, v){
+                return graph.hasOwnProperty(u) && graph[u].hasOwnProperty(v);
+            }
+            , addEdge: function(u, v){
+                // if there is already a path from u to v then we're done
+                if(graph.hasOwnProperty(u) && graph[u].hasOwnProperty(v)) return;
+
+                for(w in graph){
+                    if(graph.hasOwnProperty(w) && graph[w].hasOwnProperty(u)){
+                        graph[w][v] = true;
+                    }
+                }
+            }};
+        return obj;
+    };
+});
+
 decksServices.factory('Sorter', function(){
     // this is a max heap, that is parent > child
 
