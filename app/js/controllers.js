@@ -42,7 +42,8 @@ angular.module('myApp.controllers', [])
             if(!card){
                 return undefined;
             }
-            return 'http://mtgimage.com/card/' + card.imageName + '.jpg';
+            return 'http://mtgimage.com/set/' + $scope.set.code + '/'
+                   + card.imageName + '.jpg';
         }
 
 
