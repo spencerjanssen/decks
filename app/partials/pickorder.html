@@ -1,0 +1,18 @@
+<h1>Pick order for {{set.name}}</h1>
+
+<table>
+    <tr>
+        <td><img ng-src="{{imageOf(leftcard)}}" ng-click="clicked(true)"></img></td>
+        <td><img ng-src="{{imageOf(rightcard)}}" ng-click="clicked(false)"></img></td>
+    </tr>
+</table>
+
+<h2>Results</h2>
+<ul>
+    <li ng-repeat="result in results">{{result.name}}</li>
+</ul>
+
+<h2>Card array</h2>
+<ul>
+    <li ng-repeat="card in cards">{{card.name}}</li>
+</ul>
