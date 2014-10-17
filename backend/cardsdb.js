@@ -74,18 +74,26 @@ fs.readFile(file, 'utf8', function (err, data) {
     }
 
     data = JSON.parse(data);
-    
+
     var munged = munge(data);
     withDB(function(err, db) {
         if(err) throw err;
         var sets = db.collection('sets');
             cards = db.collection('cards');
+        sets.remove(function(err2, res){
+            if(err2) throw err2;
+            console.log('sets cleared');
+        });
+        cards.remove(function(err2, res){
+            if(err2) throw err2;
+            console.log('cards cleared');
+        });
         sets.insert(munged.sets, function(err2, objs){
-            if(err2) throw err;
+            if(err2) throw err2;
             console.log('sets done');
         });
         cards.insert(munged.cards, function(err2, objs){
-            if(err2) throw err;
+            if(err2) throw err2;
             console.log('cards done');
         });
     });

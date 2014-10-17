@@ -41,7 +41,7 @@ app.get('/api/set/:set.json', function(req, res){
 
         var cardquery = {printing: {"$elemMatch": {set: setcode}}};
         var cardfields = {_id: 0};
-        cards.find(cardquery, cardfields).toArray(function(err, docs){
+        cards.find(cardquery, cardfields, {sort: 'name'}).toArray(function(err, docs){
             if(err) throw err;
             set.cards = docs;
             res.json(set);
@@ -70,7 +70,7 @@ app.put('/api/search', function(req, res){
     if(req.body.type) {
         query.type = new RegExp(req.body.type, "i");
     }
-    cards.find(query, fields).toArray(function(err, docs){
+    cards.find(query, fields, {sort: 'name'}).toArray(function(err, docs){
         if(err) throw err;
         res.json(docs);
     });
