@@ -28,6 +28,10 @@ config(['$routeProvider', function($routeProvider) {
         {templateUrl: 'partials/set.html',
          controller: 'SetController',
          title: 'Set View'});
+    $routeProvider.when('/set/:setcode/pickorder',
+        {templateUrl: 'partials/pickorder.html',
+         controller: 'PickOrderController',
+         title: 'Set View'});
     $routeProvider.when('/card/:cardname',
         {templateUrl: 'partials/card.html',
          controller: 'CardController',

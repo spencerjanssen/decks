@@ -12,6 +12,46 @@ angular.module('myApp.controllers', [])
             $scope.page.setTitle('Set: ' + $routeParams.setcode);
         });
     })
+    .controller('PickOrderController', function($scope, $routeParams, $http,
+                                                Sets, Sorter) {
+        function yielder(c){
+            $scope.results.push(c);
+        }
+
+        function comparer(x, y, cont){
+            $scope.leftcard = x;
+            $scope.rightcard = y;
+            currentcont = cont;
+            return '';
+        };
+
+        function finished(){
+            $scope.sortdone = true;
+        }
+
+        $scope.clicked = function(b){
+            var c = currentcont;
+            currentcont = 'not a function';
+            return c(b);
+        };
+        var currentcont;
+        $scope.results = new Array();
+        $scope.sortdone = false;
+
+        $scope.imageOf = function(card){
+            if(!card){
+                return undefined;
+            }
+            return 'http://mtgimage.com/card/' + card.imageName + '.jpg';
+        }
+
+
+        $scope.set = Sets.getset.get({setcode: $routeParams.setcode}, function(){
+            $scope.cards = $scope.set.cards;
+            $scope.page.setTitle('Set: ' + $routeParams.setcode);
+            Sorter($scope.set.cards, yielder, comparer, finished)
+        });
+    })
     .controller('CardController', function($scope, $routeParams, $http, Sets) {
         $scope.card = Sets.getcard.get({card: $routeParams.cardname});
         $scope.page.setTitle('Card: ' + $routeParams.cardname);
