@@ -13,6 +13,8 @@
 \s*<<EOF>>      { return 'EOF'; }
 [oO]\:          { return 'OPERTXT'; }
 [tT]\:          { return 'OPERTYP'}
+[eE]\:          { return 'OPERSET'}
+[rR]\:          { return 'OPERRAR'}
 [cC]\:[wubrg]+  { yytext = yytext.substr(2, yyleng); return 'COLOR'}
 [cC][mM][cC](\=|([<>]\=?)) { yytext = yytext.substr(3, yyleng); return 'CMC'}
 
@@ -23,6 +25,8 @@
 %left 'NOT'
 %left 'OPERTXT'
 %left 'OPERTYP'
+%left 'OPERSET'
+%left 'OPERRAR'
 %left 'CMC'
 
 %%
@@ -39,6 +43,8 @@ e
     | TEXT              {$$ = ["_CARDNAME:", yytext]; }
     | OPERTXT TEXT      {$$ = ["_CARDTEXT:", $2]; }
     | OPERTYP TEXT      {$$ = ["_CARDTYPE:", $2]; }
+    | OPERSET TEXT      {$$ = ["_CARDSET:", $2]; }
+    | OPERRAR TEXT      {$$ = ["_CARDRARE:", $2]; }
     | CMC TEXT          {$$ = ["_CMC:", $1, $2]; }
     | COLOR             {$$ = ["_COLOR:", yytext]; }
     ;

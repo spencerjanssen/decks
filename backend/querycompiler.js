@@ -99,6 +99,8 @@ function compileAST(ast){
             return {text: new RegExp(ast[1], 'i')};
         case '_CARDTYPE:':
             return {type: new RegExp(ast[1], 'i')};
+        case '_CARDSET:':
+            return {printing: {"$elemMatch": {set: ast[1].toUpperCase()}}};
         case '_COLOR:':
             var cs = expandColors(ast[1]);
             return {colors: {$in: cs}};
