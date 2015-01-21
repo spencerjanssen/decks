@@ -101,6 +101,8 @@ function compileAST(ast){
             return {type: new RegExp(ast[1], 'i')};
         case '_CARDSET:':
             return {printing: {"$elemMatch": {set: ast[1].toUpperCase()}}};
+        case '_CARDRARE:':
+            return {printing: {"$elemMatch": {rarity: ast[1]}}};
         case '_COLOR:':
             var cs = expandColors(ast[1]);
             return {colors: {$in: cs}};
@@ -121,6 +123,9 @@ function compileBracket(ast){
         switch(ast[i][0]){
             case '_BRACKSET:':
                 conds.set = ast[i][1].toUpperCase();
+                continue;
+            case '_BRACKRARE:':
+                conds.rarity = ast[i][1];
                 continue;
         }
     }
