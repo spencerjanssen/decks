@@ -9,6 +9,8 @@
 \"[^"]*\"       { yytext = yytext.substr(1, yyleng-2); return 'TEXT'; }
 \(\s*           { return '('; }
 \s*\)           { return ')'; }
+\[\s*           { return '['; }
+\s*\]           { return ']'; }
 [^\s\:\"\'\(\)\=<>]+ { return 'TEXT'; }
 \s*<<EOF>>      { return 'EOF'; }
 [oO]\:          { return 'OPERTXT'; }
@@ -40,6 +42,7 @@ e
     | e OR  e           {$$ = ['OR', $1, $3];}
     | NOT e             {$$ = ['NOT', $2];}
     | '(' e ')'         {$$ = $2;}
+    | '[' b ']'         {$$ = ["_BRACKET:", $2];}
     | TEXT              {$$ = ["_CARDNAME:", yytext]; }
     | OPERTXT TEXT      {$$ = ["_CARDTEXT:", $2]; }
     | OPERTYP TEXT      {$$ = ["_CARDTYPE:", $2]; }
@@ -47,6 +50,12 @@ e
     | OPERRAR TEXT      {$$ = ["_CARDRARE:", $2]; }
     | CMC TEXT          {$$ = ["_CMC:", $1, $2]; }
     | COLOR             {$$ = ["_COLOR:", yytext]; }
+    ;
+
+b
+    : b AND b           {$$ = $1.concat($3); }
+    | OPERSET TEXT      {$$ = [["_BRACKSET:", $2]]; }
+    | OPERRAR TEXT      {$$ = [["_BRACKRARE:", $2]]; }
     ;
 
 /*

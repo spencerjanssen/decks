@@ -108,9 +108,24 @@ function compileAST(ast){
             var ret = {};
             ret[cmcoper(ast[1])] = parsenumber(ast[2]);
             return {cmc: cmcoper(ast[1], parsenumber(ast[2]))};
+        case '_BRACKET:':
+            return compileBracket(ast[1]);
         default:
             throw ("Compiler error, unrecognized tag: " + ast[0]);
     }
+}
+
+function compileBracket(ast){
+    var conds = {};
+    for(var i = 0; i < ast.length; i++){
+        switch(ast[i][0]){
+            case '_BRACKSET:':
+                conds.set = ast[i][1].toUpperCase();
+                continue;
+        }
+    }
+
+    return {printing: {'$elemMatch': conds}};
 }
 
 function compile(s){
