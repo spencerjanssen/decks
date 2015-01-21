@@ -11,7 +11,7 @@
 \s*\)           { return ')'; }
 \[\s*           { return '['; }
 \s*\]           { return ']'; }
-[^\s\:\"\'\(\)\=<>]+ { return 'TEXT'; }
+[^\s\:\"\'\(\)\[\]\=<>]+ { return 'TEXT'; }
 \s*<<EOF>>      { return 'EOF'; }
 [oO]\:          { return 'OPERTXT'; }
 [tT]\:          { return 'OPERTYP'}
